@@ -4,6 +4,7 @@ const promptUser = () => {
     return inquirer
     .prompt([
         {
+            // title of the read me
             type: 'input',
             name: 'name',
             message: 'What is the name of your project? (required)',
@@ -17,86 +18,77 @@ const promptUser = () => {
             }
         },
         {
+            // description
             type: 'input',
-            name: 'github',
-            message: 'please enter your github username'
+            name: 'description',
+            message: 'Please describe what this project does!'
         },
         {
-            type: 'confirm',
-            name: 'confirmAbout',
-            message: 'would you like to enter some information about yourself for an "about section"?',
+            // installation instructions
+            type: 'install',
+            name: 'installInst',
+            message: 'Would you like to enter installation instructions?',
             default: true
         },
         {
+            // useage information
+            type: 'useage',
+            name: 'useageInfo',
+            message: 'Please provide instructions and examples for use:',
+            // when: ({ confirmAbout }) => confirmAbout
+        },
+        {
+            type: 'checkbox',
+            name: 'languages',
+            message: 'what did you this project with? (Check all that apply)',
+            choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
+        },
+        {
+            // contribution 
+            type: 'collab',
+            name: 'collaborators',
+            message: 'Please list your collaborators, if any, with links to their GitHub profiles, any third-party assets, or tutorials with links:'
+        },
+        // {
+           // choose a license from list of options provided
+            // type: 'license',
+            // badge for the license is added to the read me entitled 'license'
+        // },
+        {
+            // github 
             type: 'input',
-            name: 'about',
-            message: 'provide some information about yourself:',
-            when: ({ confirmAbout }) => confirmAbout
-        }
+            name: 'link',
+            message: 'please enter your github username'
+        },
+        {
+            // enter email - save to the read me section 'questions
+            type: 'input',
+            name: 'email',
+            message: 'The best email to reach you: '
+        },
+        
     ]);
 };
-
-const promptProject = portfolioData => {
-    console.log(`
-  =================
-  Add a New Project
-  =================
-  `);
-    return inquirer.prompt([
-      {
-        type: 'input',
-        name: 'name',
-        message: 'what is the name of your project?'
-      },
-      {
-        type: 'input',
-        name: 'description',
-        message: 'provide a description of the project (Required)'
-      },
-      {
-        type: 'checkbox',
-        name: 'languages',
-        message: 'what did you this project with? (Check all that apply)',
-        choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
-      },
-      {
-        type: 'input',
-        name: 'link',
-        message: 'enter the github link to your project. (Required)'
-      },
-      {
-        type: 'confirm',
-        name: 'feature',
-        message: 'would you like to feature this project?',
-        default: false
-      },
-      {
-        type: 'confirm',
-        name: 'confirmAddProject',
-        message: 'would you like to enter another project?',
-        default: false
-      }
-    ])
-    .then(projectData => {
+.then(projectData => {
         portfolioData.projects.push(projectData);
         if(projectData.confirmAddProject) {
-            return promptProject(portfolioData);
+            return gitQuestions(portfolioData);
         } else {
             return portfolioData;
         }
     })
-}
-  promptUser()
-  .then(promptProject)
-  .then(portfolioData => {
-    const pageHTML = generatePage(portfolioData);
-  });
-
 
 
 // function to write README file
 function writeToFile(fileName, data) {
+    promptUser()
+        .then(gitQuestions)
+        .then(portfolioData => {
+    const pageHTML = generatePage(portfolioData);
+});
 }
+
+
 
 // function to initialize program
 function init() {
