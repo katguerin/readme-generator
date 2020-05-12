@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const generatePage = require('./page-template');
 
 const promptUser = () => {
     return inquirer
@@ -67,9 +68,8 @@ const promptUser = () => {
             message: 'The best email to reach you: '
         },
         
-    ]);
-};
-.then(projectData => {
+    ])
+    .then(projectData => {
         portfolioData.projects.push(projectData);
         if(projectData.confirmAddProject) {
             return gitQuestions(portfolioData);
@@ -77,16 +77,23 @@ const promptUser = () => {
             return portfolioData;
         }
     })
+};
+
 
 
 // function to write README file
-function writeToFile(fileName, data) {
+// function writeToFile(fileName, data) {
     promptUser()
-        .then(gitQuestions)
+        .then(promptProject)
         .then(portfolioData => {
     const pageHTML = generatePage(portfolioData);
-});
-}
+
+    // fs.writeFile('./index.html', pageHTML, err => {
+    //   if (err) throw new Error(err);
+    //   console.log('Page created! Check out index.html in this directory to see it!');
+    // });
+  });
+
 
 
 
