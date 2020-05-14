@@ -1,6 +1,6 @@
 const fs = require('fs')
 const inquirer = require('inquirer')
-const generatePage = require('./page-template')
+const generateReadme = require('./page-template')
 
 const promptUser = () => {
     return inquirer
@@ -145,7 +145,7 @@ const promptUser = () => {
 };
 
 // call
-questions().then(answers => 
+promptUser().then(answers => 
     fs.writeFile('./README.md', generateReadme(answers), err => {
         if (err) throw new Error(err);
         console.log('README.md file created !')
