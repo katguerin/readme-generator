@@ -10,7 +10,7 @@ const promptUser = () => {
         type: "input",
         name: "name",
         message: "What is the name of your project? (required)",
-        validate: (projectNameInput) => {
+        validate: projectNameInput => {
           if (projectNameInput) {
             return true;
           } else {
@@ -24,7 +24,7 @@ const promptUser = () => {
         type: "input",
         name: "description",
         message: "Please describe what this project does!",
-        validate: (descriptionInput) => {
+        validate: descriptionInput => {
           if (descriptionInput) {
             return true;
           } else {
@@ -39,7 +39,7 @@ const promptUser = () => {
         name: "installInst",
         message: "Would you like to enter installation instructions?",
         default: true,
-        validate: (installInstInput) => {
+        validate: installInstInput => {
           if (installInstInput) {
             return true;
           } else {
@@ -53,7 +53,7 @@ const promptUser = () => {
         type: "useage",
         name: "useageInfo",
         message: "Please provide instructions and examples for use:",
-        validate: (useageInput) => {
+        validate: useageInput => {
           if (useageInput) {
             return true;
           } else {
@@ -75,7 +75,7 @@ const promptUser = () => {
           "Bootstrap",
           "Node",
         ],
-        validate: (languageInput) => {
+        validate: languageInput => {
           if (languageInput) {
             return true;
           } else {
@@ -90,7 +90,7 @@ const promptUser = () => {
         name: "collaborators",
         message:
           "Please list your collaborators, if any, with links to their GitHub profiles, any third-party assets, or tutorials with links:",
-        validate: (collabInput) => {
+        validate: collabInput => {
           if (collabInput) {
             return true;
           } else {
@@ -104,7 +104,7 @@ const promptUser = () => {
         type: "license",
         // badge for the license is added to the read me entitled 'license',
         choices: ["MIT", "APACHE 2.0", "GPL 3.0", "BSD 3", "None"],
-        validate: (licenseInput) => {
+        validate: licenseInput => {
           if (licenseInput) {
             return true;
           } else {
@@ -118,7 +118,7 @@ const promptUser = () => {
         type: "input",
         name: "link",
         message: "please enter your github username",
-        validate: (githubInput) => {
+        validate: githubInput => {
           if (githubInput) {
             return true;
           } else {
@@ -132,7 +132,7 @@ const promptUser = () => {
         type: "input",
         name: "email",
         message: "The best email to reach you: ",
-        validate: (emailInput) => {
+        validate: emailInput => {
           if (emailInput) {
             return true;
           } else {
@@ -179,6 +179,6 @@ promptUser().then((answers) =>
 // }
 
 // // function call to initialize program
-init();
+// init();
 
 
